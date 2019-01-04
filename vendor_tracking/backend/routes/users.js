@@ -21,6 +21,9 @@ mongoose
 
 users.use(bodyParser);
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//This is a test pull.  Pulls all data.  Only use this if you need to check all the data//
+//////////////////////////////////////////////////////////////////////////////////////////
 users.get('/getalldata',(req,res,next)=>
 {
   console.log(req.body);
@@ -35,6 +38,9 @@ users.get('/getalldata',(req,res,next)=>
   });
 });
 
+/////////////////////////////////////////////////////////////////
+//This is a test api link.  Use this to bulk store information///
+/////////////////////////////////////////////////////////////////
 users.post('/addalldata',(req,res,next)=>
 {
   console.log(req.body);
@@ -91,7 +97,7 @@ users.post('/addalldata',(req,res,next)=>
   .then(createdPost => {
     return res.status(201).json(
       {
-        message:"Product Data added properly!",
+        message:"User Data added properly!",
         post_id: createdPost._id
       });
   });
