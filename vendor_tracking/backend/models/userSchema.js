@@ -4,16 +4,18 @@ const userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, required: true },
-  phonenumber: { type: Number, required: true },
+  phonenumber: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   fName: { type: String, required: true },
   lName: { type: String, required: true },
   Salesperson: {
     name: { type: String },
     email: { type: String },
-    phonenumber: { type: Number },
+    phonenumber: { type: String },
     jobReq: {
+      //company that is putting out the requirement
       reqName: { type: String },
+      //the requirement description
       jobRequirement: { type: String }
     }
   },
@@ -24,16 +26,16 @@ const userSchema = mongoose.Schema({
     interview: { type: String },
     jobReq: { type: String },
     calldate: { type: Date },
-    pass: { type: Boolean },
+    pass: { type: String },
     vendorCompany: { type: String },
     repCompany: { type: Array }
   },
   Client: {
     name: { type: String },
     email: { type: String },
-    phone: { type: Number },
+    phone: { type: String },
     interview: { type: String },
-    pass: { type: Boolean },
+    pass: { type: String },
     company: { type: String },
     location: { type: String },
     interviewDate: { type: Date }
@@ -42,7 +44,7 @@ const userSchema = mongoose.Schema({
     name: { type: String },
     email: { type: String },
     password: { type: String },
-    phone: { type: Number },
+    phone: { type: String },
     project: { type: String },
     projectRole: { type: String }
   }
