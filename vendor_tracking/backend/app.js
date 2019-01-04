@@ -2,8 +2,8 @@ const express = require('express');
 const http = require('http');
 const app = express();
 
-const user = require("./user");
-const interview = require("./interview");
+const user = require("./routes/users");
+//const interview = require("./routes/interview");
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin","*");
@@ -18,7 +18,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/users", users);
-app.use("/api/interview", interview);
+app.use("/api/users", user);
+//app.use("/api/interview", interview);
 
 module.exports = app;
