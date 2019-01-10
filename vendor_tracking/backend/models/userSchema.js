@@ -88,6 +88,7 @@ const userSchema = mongoose.Schema({
     //Their role in that project
     projectRole: { type: String }
   },
+  //when the user created their account
   joinDate: { type: Date, default: Date.now }
 });
 

@@ -21,6 +21,96 @@ mongoose
 
 users.use(bodyParser);
 
+users.post('/signup', (req, res, next) =>
+{
+  console.log("sign up information: " + req.body + "\n");
+  User.findOne({"username": req.body.user})
+  .then(input =>
+  {
+    console.log("output from database: "+input+"\n");
+    if(!input)
+    {
+      bcrypt.hash(req.body.password, 10)
+      .then(hash =>
+      {
+        console.log("this is the hashed password: "+hash+"\n");
+        const user = new Users(
+        {
+          username: req.body.username,
+          password: req.body.password,
+          role: req.body.role,
+          phonenumber: req.body.phonenumber,
+          fName: req.body.fName,
+          lName: req.body.lName,
+          joinDate: req.body.joinDate
+        });
+        user
+        .save()
+        .then(createdPost => {
+          return res.status(200).json({
+            message: "User added successfully!",
+            returnObj: createdPost
+          })
+        .catch(err => {
+          return res.status(500).json({
+            message: err
+          });
+        });
+      });
+    });
+  }
+  else
+  {
+      console.log("Error: Username already exists!\n");
+      return res.status(201).json({
+        message: "Error: User already exists!"
+      });
+    }
+  });
+});
+
+users.post('/addvendor', (req, res, next) =>
+{
+  Users.find({"username":req.body.username})
+  .then(output =>
+  {
+    if(!input)
+    {
+      console.log("Error: no such user!\n")
+      return res.status(201).json({
+        message: "Error: user does not exist!"
+      });
+    }
+    else
+    {
+      console.log(req.body.Vendor+"\n");
+      const vendor = new Users({
+        Vendor: {
+          name: req.body.Vendor.name,
+          email: req.body.Vendor.email,
+          phonenumber: req.body.Vendor.email,
+          interview: req.body.Vendor.interview,
+          jobReq: req.body.Vendor.jobReq,
+          calldate: req.body.Vendor.calldate,
+          pass: req.body.Vendor.pass,
+          vendorCompany: req.body.Vendor.vendorCompany,
+          repCompany: req.body.Vendor.repCompany,
+          salesSubmit: req.body.Vendor.salesSumbit
+        }
+      });
+      vendor
+      .save()
+      .then(addedVendor =>
+      {
+        console.log("This is what's been added: \n"+addedVendor);
+        return res.status(200).json({
+          message: "Vendor has been added."
+        });
+      });
+    }
+  });
+});
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //This is a test pull.  Pulls all data.  Only use this if you need to check all the data//
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -96,10 +186,10 @@ users.post('/addalldata',(req,res,next)=>
   .save()
   .then(createdPost => {
     return res.status(201).json(
-      {
-        message:"User Data added properly!",
-        post_id: createdPost._id
-      });
+    {
+      message:"User Data added properly!",
+      post_id: createdPost._id
+    });
   });
 });
 
